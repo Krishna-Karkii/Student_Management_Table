@@ -1,7 +1,6 @@
 import sqlite3
 import sys
-
-from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel, QTableWidget, QTableWidgetItem
+from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel, QTableWidget, QTableWidgetItem, QDialog
 from PyQt6.QtGui import QAction
 
 
@@ -10,15 +9,19 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Student Management System")
 
+        # constructed file option in menubar
         file_menu = self.menuBar().addMenu("&File")
         insert_action = QAction("Add", self)
         file_menu.addAction(insert_action)
+        insert_action.triggered.connect(self.insert)
 
+        # constructed help option in menubar
         help_menu = self.menuBar().addMenu("&Help")
         about_action = QAction("about", self)
         help_menu.addAction(about_action)
         about_action.setMenuRole(QAction.MenuRole.NoRole)
 
+        # Constructed table to show student information
         self.table = QTableWidget()
         self.table.setColumnCount(4)
         self.table.setHorizontalHeaderLabels(("Id", "Name", "Course", "Mobile"))
@@ -33,6 +36,18 @@ class MainWindow(QMainWindow):
             self.table.insertRow(row_index)
             for column_index, column_data in enumerate(row_data):
                 self.table.setItem(row_index, column_index, QTableWidgetItem(str(column_data)))
+
+    def insert(self):
+        dialogue = Dialogue()
+        dialogue.exec()
+
+
+class Dialogue(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Insert Student Info")
+        self.setFixedWidth(300)
+        self.setFixedHeight(300)
 
 
 app = QApplication(sys.argv)
