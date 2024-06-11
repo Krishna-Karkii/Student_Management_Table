@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 from PyQt6.QtWidgets import (QMainWindow, QApplication, QTableWidget, QTableWidgetItem, QDialog,
-                             QVBoxLayout, QLineEdit, QComboBox, QPushButton)
+                             QVBoxLayout, QLineEdit, QComboBox, QPushButton, QGridLayout)
 from PyQt6.QtGui import QAction
 
 
@@ -43,6 +43,10 @@ class MainWindow(QMainWindow):
     def insert(self):
         dialog = InsertDialog()
         dialog.exec()
+
+    def search(self):
+        search_dialog = SearchDialog()
+        search_dialog.exec()
 
 
 class InsertDialog(QDialog):
@@ -95,17 +99,21 @@ class SearchDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.windowTitle("Search Bar")
-        self.setFixedWidth(150)
-        self.setFixedHeight(150)
-
-        layout = QVBoxLayout()
+        layout = QGridLayout
 
         # Creating search widget
         self.search_box = QLineEdit()
         self.search_box.setPlaceholderText("Enter the name of student...")
-        layout.addWidget(self.search_box)
 
+        # Creating search button
+        button = QPushButton("Search")
+        button.clicked.connect(self.search)
+
+        layout.addWidget(self.search_box, 0, 0)
         self.setLayout(layout)
+
+    def search(self):
+        pass
 
 
 app = QApplication(sys.argv)
