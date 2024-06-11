@@ -41,11 +41,11 @@ class MainWindow(QMainWindow):
         conn.close()
 
     def insert(self):
-        dialogue = Dialogue()
-        dialogue.exec()
+        dialog = Dialog()
+        dialog.exec()
 
 
-class Dialogue(QDialog):
+class InsertDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Insert Student Info")
