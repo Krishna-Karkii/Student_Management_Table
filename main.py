@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
         conn.close()
 
     def insert(self):
-        dialog = Dialog()
+        dialog = InsertDialog()
         dialog.exec()
 
 
@@ -89,6 +89,23 @@ class InsertDialog(QDialog):
         cur.close()
         conn.close()
         main_window.load_data()
+
+
+class SearchDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.windowTitle("Search Bar")
+        self.setFixedWidth(150)
+        self.setFixedHeight(150)
+
+        layout = QVBoxLayout()
+
+        # Creating search widget
+        self.search_box = QLineEdit()
+        self.search_box.setPlaceholderText("Enter the name of student...")
+        layout.addWidget(self.search_box)
+
+        self.setLayout(layout)
 
 
 app = QApplication(sys.argv)
