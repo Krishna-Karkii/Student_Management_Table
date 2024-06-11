@@ -18,4 +18,8 @@ class MainWindow(QMainWindow):
         help_menu.addAction(about_action)
 
 
+app = QApplication(sys.argv)
+main_window = MainWindow()
+main_window.show()
+sys.exit(app.exec())
 
