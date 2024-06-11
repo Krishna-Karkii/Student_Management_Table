@@ -1,6 +1,7 @@
 import sqlite3
 import sys
-from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel, QTableWidget, QTableWidgetItem, QDialog
+from PyQt6.QtWidgets import (QMainWindow, QApplication, QTableWidget, QTableWidgetItem, QDialog,
+                             QVBoxLayout, QLineEdit, QComboBox)
 from PyQt6.QtGui import QAction
 
 
@@ -48,6 +49,24 @@ class Dialogue(QDialog):
         self.setWindowTitle("Insert Student Info")
         self.setFixedWidth(300)
         self.setFixedHeight(300)
+
+        layout = QVBoxLayout()
+
+        # create widget for student name
+        student_name = QLineEdit()
+        student_name.setPlaceholderText("Name..")
+        layout.addWidget(student_name)
+
+        # create widget for student course
+        course_select_box = QComboBox()
+        course_list = ['Biology', 'Chemistry', 'Astronomy', 'Physics']
+        course_select_box.addItems(course_list)
+        layout.addWidget(course_select_box)
+
+        # create widget for student number
+        mobile = QLineEdit()
+        mobile.setPlaceholderText("Phone number...")
+        layout.addWidget(mobile)
 
 
 app = QApplication(sys.argv)
