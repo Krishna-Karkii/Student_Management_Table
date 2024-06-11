@@ -38,6 +38,8 @@ class MainWindow(QMainWindow):
             for column_index, column_data in enumerate(row_data):
                 self.table.setItem(row_index, column_index, QTableWidgetItem(str(column_data)))
 
+        conn.close()
+
     def insert(self):
         dialogue = Dialogue()
         dialogue.exec()
@@ -53,27 +55,40 @@ class Dialogue(QDialog):
         layout = QVBoxLayout()
 
         # create widget for student name
-        student_name = QLineEdit()
-        student_name.setPlaceholderText("Name..")
-        layout.addWidget(student_name)
+        self.student_name = QLineEdit()
+        self.student_name.setPlaceholderText("Name..")
+        layout.addWidget(self.student_name)
 
         # create widget for student course
-        course_select_box = QComboBox()
+        self.course_select_box = QComboBox()
         course_list = ['Biology', 'Chemistry', 'Astronomy', 'Physics']
-        course_select_box.addItems(course_list)
-        layout.addWidget(course_select_box)
+        self.course_select_box.addItems(course_list)
+        layout.addWidget(self.course_select_box)
 
         # create widget for student number
-        mobile = QLineEdit()
-        mobile.setPlaceholderText("Phone number...")
-        layout.addWidget(mobile)
+        self.mobile = QLineEdit()
+        self.mobile.setPlaceholderText("Phone number...")
+        layout.addWidget(self.mobile)
 
         # create button for submitting student info
-        submit_button = QPushButton()
+        submit_button = QPushButton("Submit")
         submit_button.clicked.connect(self.insert_to_database)
+        layout.addWidget(submit_button)
+
+        self.setLayout(layout)
 
     def insert_to_database(self):
-        pass
+        name = self.student_name.text()
+        course = self.course_select_box.currentText()
+        mobile = self.mobile.text()
+        conn = sqlite3.connect("database.db")
+        cur = conn.cursor()
+        cur.execute("INSERT INTO students (name, course, mobile) Values(?,?,?)",
+                    (name, course, mobile))
+        conn.commit()
+        cur.close()
+        conn.close()
+        main_window.load_data()
 
 
 app = QApplication(sys.argv)
