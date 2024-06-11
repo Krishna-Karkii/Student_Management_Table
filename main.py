@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 from PyQt6.QtWidgets import (QMainWindow, QApplication, QTableWidget, QTableWidgetItem, QDialog,
-                             QVBoxLayout, QLineEdit, QComboBox)
+                             QVBoxLayout, QLineEdit, QComboBox, QPushButton)
 from PyQt6.QtGui import QAction
 
 
@@ -67,6 +67,13 @@ class Dialogue(QDialog):
         mobile = QLineEdit()
         mobile.setPlaceholderText("Phone number...")
         layout.addWidget(mobile)
+
+        # create button for submitting student info
+        submit_button = QPushButton()
+        submit_button.clicked.connect(self.insert_to_database)
+
+    def insert_to_database(self):
+        pass
 
 
 app = QApplication(sys.argv)
