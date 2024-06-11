@@ -1,6 +1,6 @@
 import sys
 
-from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel
+from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel, QTableWidget
 from PyQt6.QtGui import QAction
 
 
@@ -17,6 +17,14 @@ class MainWindow(QMainWindow):
         about_action = QAction("about", self)
         help_menu.addAction(about_action)
         about_action.setMenuRole(QAction.MenuRole.NoRole)
+
+        self.table = QTableWidget()
+        self.table.setColumnCount(4)
+        self.table.setHorizontalHeaderLabels(("Id", "Name", "Course", "Mobile"))
+        self.setCentralWidget(self.table)
+
+    def load_table_data(self):
+        pass
 
 
 app = QApplication(sys.argv)
