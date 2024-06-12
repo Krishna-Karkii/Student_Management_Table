@@ -80,10 +80,12 @@ class MainWindow(QMainWindow):
         self.statusbar.addWidget(delete_button)
 
     def edit(self):
-        pass
+        edit_dialog = EditDialog()
+        edit_dialog.exec()
 
     def delete(self):
-        pass
+        delete_dialog = DeleteDialog()
+        delete_dialog.exec()
 
 
 class InsertDialog(QDialog):
@@ -165,11 +167,11 @@ class SearchDialog(QDialog):
         conn.close()
 
 
-class EditDialog:
+class EditDialog(QDialog):
     pass
 
 
-class DeleteDialog:
+class DeleteDialog(QDialog):
     pass
 
 
