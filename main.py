@@ -2,7 +2,7 @@ import sqlite3
 import sys
 from PyQt6.QtWidgets import (QMainWindow, QApplication, QTableWidget, QTableWidgetItem, QDialog,
                              QVBoxLayout, QLineEdit, QComboBox, QPushButton, QGridLayout, QToolBar,
-                             QStatusBar, QLabel)
+                             QStatusBar, QLabel, QMessageBox)
 from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtCore import Qt
 
@@ -254,6 +254,14 @@ class DeleteDialog(QDialog):
         cur.close()
         conn.close()
         main_window.load_data()
+
+        self.close()
+
+        # Conformation message of deletion to the user
+        conformation_message = QMessageBox()
+        conformation_message.setWindowTitle("Success")
+        conformation_message.setText("Student data has been successfully deleted!")
+        conformation_message.exec()
 
 
 app = QApplication(sys.argv)
