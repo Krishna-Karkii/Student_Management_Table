@@ -1,7 +1,8 @@
 import sqlite3
 import sys
 from PyQt6.QtWidgets import (QMainWindow, QApplication, QTableWidget, QTableWidgetItem, QDialog,
-                             QVBoxLayout, QLineEdit, QComboBox, QPushButton, QGridLayout, QToolBar)
+                             QVBoxLayout, QLineEdit, QComboBox, QPushButton, QGridLayout, QToolBar,
+                             QStatusBar)
 from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtCore import Qt
 
@@ -24,7 +25,7 @@ class MainWindow(QMainWindow):
         help_menu.addAction(about_action)
         about_action.setMenuRole(QAction.MenuRole.NoRole)
 
-        # Construct Search option in menubar
+        # Construct Edit option in menubar
         search_menu = self.menuBar().addMenu("&Edit")
         search_action = QAction(QIcon("icons/search.png"), "search", self)
         search_menu.addAction(search_action)
@@ -44,6 +45,12 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.table)
         self.table.verticalHeader().setVisible(False)
 
+        # Construct a Statusbar
+        self.statusbar = QStatusBar()
+        self.setStatusBar(self.statusbar)
+
+        self.table.cellClicked.connect(self.cell_clicked)
+
     def load_data(self):
         conn = sqlite3.connect("database.db")
         result = list(conn.execute("SELECT * FROM students"))
@@ -62,6 +69,15 @@ class MainWindow(QMainWindow):
     def search(self):
         search_dialog = SearchDialog()
         search_dialog.exec()
+
+    def cell_clicked(self):
+        pass
+
+    def edit(self):
+        pass
+
+    def delete(self):
+        pass
 
 
 class InsertDialog(QDialog):
@@ -141,6 +157,14 @@ class SearchDialog(QDialog):
 
         cur.close()
         conn.close()
+
+
+class EditDialog:
+    pass
+
+
+class DeleteDialog:
+    pass
 
 
 app = QApplication(sys.argv)
