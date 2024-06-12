@@ -174,7 +174,35 @@ class SearchDialog(QDialog):
 
 
 class EditDialog(QDialog):
-    pass
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Update Info")
+        self.setFixedWidth(300)
+        self.setFixedHeight(300)
+
+        layout = QVBoxLayout()
+        index = main_window.table.currentRow()
+
+        # Create student name widget with current name
+        name = main_window.table.item(index, 1).text()
+        self.student_name = QLineEdit(name)
+        self.student_name.setPlaceholderText("name")
+        layout.addWidget(self.student_name)
+
+        # create course name widget with current course name
+        course_name = main_window.table.item(index, 2).text()
+        self.course_name = QComboBox()
+        course_list = ['Biology', 'Chemistry', 'Astronomy', 'Physics']
+        self.course_name.addItems(course_list)
+        self.course_name.setCurrentText(course_name)
+        layout.addWidget(self.course_name)
+
+        # Create mobile widget with current mobile number
+        phone_number = main_window.table.item(index, 3).text()
+        self.mobile = QLineEdit(phone_number)
+        layout.addWidget(self.mobile)
+
+        self.setLayout(layout)
 
 
 class DeleteDialog(QDialog):
