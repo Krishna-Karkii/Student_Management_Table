@@ -182,6 +182,7 @@ class EditDialog(QDialog):
 
         layout = QVBoxLayout()
         index = main_window.table.currentRow()
+        self.student_id = main_window.table.item(index, 0)
 
         # Create student name widget with current name
         name = main_window.table.item(index, 1).text()
@@ -202,7 +203,15 @@ class EditDialog(QDialog):
         self.mobile = QLineEdit(phone_number)
         layout.addWidget(self.mobile)
 
+        # Create button to register updated info
+        button = QPushButton("Register")
+        button.clicked.connect(self.update_student_info)
+        layout.addWidget(button)
+
         self.setLayout(layout)
+
+    def update_student_info(self):
+        pass
 
 
 class DeleteDialog(QDialog):
