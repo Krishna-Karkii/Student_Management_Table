@@ -71,7 +71,13 @@ class MainWindow(QMainWindow):
         search_dialog.exec()
 
     def cell_clicked(self):
-        pass
+        edit_button = QPushButton("Edit Cell")
+        edit_button.clicked.connect(self.edit)
+        delete_button = QPushButton("Delete Cell")
+        delete_button.clicked.connect(self.delete)
+
+        self.statusbar.addWidget(edit_button)
+        self.statusbar.addWidget(delete_button)
 
     def edit(self):
         pass
