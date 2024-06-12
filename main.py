@@ -243,7 +243,17 @@ class DeleteDialog(QDialog):
         self.setLayout(layout)
 
     def delete_data(self):
-        pass
+        index = main_window.table.currentRow()
+        student_id = main_window.table.item(index, 0)
+
+        conn = sqlite3.connect("database.db")
+        cur = conn.cursor()
+        cur.execute("DELETE from students WHERE id = ?",
+                    (student_id.text(),))
+        conn.commit()
+        cur.close()
+        conn.close()
+        main_window.load_data()
 
 
 app = QApplication(sys.argv)
