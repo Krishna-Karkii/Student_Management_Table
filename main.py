@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
         # construct help option in menubar
         help_menu = self.menuBar().addMenu("&Help")
         about_action = QAction("about", self)
+        about_action.triggered.connect(self.about)
         help_menu.addAction(about_action)
         about_action.setMenuRole(QAction.MenuRole.NoRole)
 
@@ -92,6 +93,20 @@ class MainWindow(QMainWindow):
     def delete(self):
         delete_dialog = DeleteDialog()
         delete_dialog.exec()
+
+    def about(self):
+        about_dialog = AboutDialog()
+        about_dialog.exec()
+
+
+class AboutDialog(QMessageBox):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("About Message")
+        content = """
+        This app was build for fun through learning process
+        where i encountered various different apps"""
+        self.setText(content)
 
 
 class InsertDialog(QDialog):
@@ -259,7 +274,7 @@ class DeleteDialog(QDialog):
 
         # Conformation message of deletion to the user
         conformation_message = QMessageBox()
-        conformation_message.setWindowTitle("Success")
+        conformation_message.setWindowTitle("About Message")
         conformation_message.setText("Student data has been successfully deleted!")
         conformation_message.exec()
 
